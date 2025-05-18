@@ -87,18 +87,11 @@ const ProfileCard = () => (
       <div className="flex w-full flex-col items-start justify-start">
         <div className="flex flex-row items-start justify-start gap-1">
           <h3 className="text-xl font-bold tracking-tight text-white mix-blend-hard-light sm:text-xl">
-            Book Mass
+            Claim Your Tokens
           </h3>
         </div>
-        <div className="flex flex-row items-start justify-start gap-1">
-          <p className="max-w-[120px] truncate text-sm font-medium text-white/80 mix-blend-screen sm:max-w-[160px] sm:text-base">
-            @testacct
-          </p>
-          <span className="shrink-0 text-base sm:text-lg">🇷🇼</span>
-        </div>
-        <div className="flex items-center text-xs text-white/60 mix-blend-screen sm:text-sm">
-          <p>Joined May 17, 2025</p>
-        </div>
+       
+     
       </div>
     </div>
   </div>

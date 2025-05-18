@@ -1,10 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: [
-      'api.qrserver.com', // Allow loading images from api.qrserver.com
-      'sidrachain.com', // Allow loading images from sidrachain.com
-    ],
+    domains: ['api.qrserver.com',"sidrachain.com"], // Allow loading images from api.qrserver.com
+  },
+  slint: {
+    ignoreDuringBuilds: true,
   },
 }
 
