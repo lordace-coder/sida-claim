@@ -3,11 +3,12 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { CheckCircleIcon, SparklesIcon, ArrowRightIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import { useRouter } from 'next/navigation';
 
 
 const SuccessModal = ({ isOpen, onClose, onSignIn }) => {
   const [step, setStep] = useState(0);
-
+  const router = useRouter();
   useEffect(() => {
     if (isOpen) {
       // Trigger step animation after modal opens
@@ -105,10 +106,9 @@ const SuccessModal = ({ isOpen, onClose, onSignIn }) => {
       },
     },
   };
-
   const handleSignIn = () => {
-    onSignIn && onSignIn();
     onClose();
+    router.push('/login');
   };
 
   return (

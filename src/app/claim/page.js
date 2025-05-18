@@ -7,12 +7,13 @@ import ProfileSection from '../components/ProfileSection';
 import ClaimSection from '../components/ClaimSection';
 import AppsSection from '../components/AppsSection';
 import { SuccessModal } from '../components/Modals';
+import { checkCryptoAddress, isCryptoAddress } from '../lib/address';
 
 export default function Home() {
   const [status, setStatus] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  const [isModalOpen, setIsModalOpen] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleSignIn = () => {
     // Implement sign-in logic here
@@ -26,21 +27,16 @@ export default function Home() {
     setIsLoading(true);
     setStatus('');
     try {
-      const res = await fetch('https://api.sidra.io/claim', {
-        method: 'POST',
-        body: JSON.stringify({ address: walletAddress })
-      });
-      const data = await res.json();
-      if (res.ok) {
-        setStatus('Success! Tx: ' + data.txHash.slice(0, 10) + '…');
-      } else {
-        throw new Error(data.message || 'Error');
+     if(!isCryptoAddress(walletAddress) ){
+        setStatus('Invalid wallet address');
+        return;
       }
+      setIsModalOpen(true);
+
     } catch (e) {
       setStatus(e.message);
     } finally {
       setIsLoading(false);
-      setIsModalOpen(true);
     }
   };
   return (
@@ -57,7 +53,8 @@ export default function Home() {
           <ProfileSection />
         </div>
 
-        <div className="md:col-span-7 lg:col-span-8 flex flex-col space-y-6  ">          <ClaimSection 
+        <div className="md:col-span-7 lg:col-span-8 flex flex-col space-y-6  ">   
+                 <ClaimSection 
             handleClaim={handleClaim}
             isLoading={isLoading}
             status={status}
