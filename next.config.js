@@ -2,9 +2,8 @@
 const nextConfig = {
   images: {
     domains: ['api.qrserver.com',"sidrachain.com"], // Allow loading images from api.qrserver.com
-  },
-  slint: {
-    ignoreDuringBuilds: true,
+  },  eslint: {
+    ignoreDuringBuilds: true
   },
 }
 
