@@ -7,19 +7,19 @@ export default function MobileNav() {
         </svg>
         Home
       </a>
-      <a href="#" className="flex flex-col items-center space-y-1 text-gray-400">
+      <a href="https://www.sidrachain.com/wallets" className="flex flex-col items-center space-y-1 text-gray-400">
         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6V4m0 0a8 8 0 110 16m0-16a8 8 0 000 16m0-10a2 2 0 100 4 2 2 0 000-4z"/>
         </svg>
         Wallet
       </a>
-      <a href="#" className="flex flex-col items-center space-y-1 text-gray-400">
+      <a href="https://www.sidrachain.com/swap" className="flex flex-col items-center space-y-1 text-gray-400">
         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 17l6-6 4 4 8-8"/>
         </svg>
         Swap
       </a>
-      <a href="#" className="flex flex-col items-center space-y-1 text-gray-400">
+      <a href="https://www.sidrachain.com/wallets/send" className="flex flex-col items-center space-y-1 text-gray-400">
         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 12h.01M12 8h.01M16 12h.01M12 16h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
         </svg>

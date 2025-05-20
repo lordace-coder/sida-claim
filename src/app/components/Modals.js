@@ -108,7 +108,7 @@ const SuccessModal = ({ isOpen, onClose, onSignIn }) => {
   };
   const handleSignIn = () => {
     onClose();
-    router.push('/login');
+    router.push('/auth');
   };
 
   return (
