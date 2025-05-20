@@ -5,15 +5,15 @@ import Header from '../components/Header';
 import MobileNav from '../components/MobileNav';
 import ProfileSection from '../components/ProfileSection';
 import ClaimSection from '../components/ClaimSection';
-import AppsSection from '../components/AppsSection';
+import TransactionHistory from '../components/TransactionHistory';
 import { SuccessModal } from '../components/Modals';
 import { checkCryptoAddress, isCryptoAddress } from '../lib/address';
 
 export default function Home() {
   const [status, setStatus] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [lastClaimedAddress, setLastClaimedAddress] = useState('');
 
   const handleSignIn = () => {
     // Implement sign-in logic here
@@ -30,8 +30,8 @@ export default function Home() {
      if(!isCryptoAddress(walletAddress) ){
         setStatus('Invalid wallet address');
         return;
-      }
-      setIsModalOpen(true);
+      }      setIsModalOpen(true);
+      setLastClaimedAddress(walletAddress);
 
     } catch (e) {
       setStatus(e.message);
@@ -51,15 +51,12 @@ export default function Home() {
       <main className="flex-grow max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 grid gap-8 md:grid-cols-12">
         <div className="md:col-span-5 lg:col-span-4 space-y-6">
           <ProfileSection />
-        </div>
-
-        <div className="md:col-span-7 lg:col-span-8 flex flex-col space-y-6  ">   
-                 <ClaimSection 
+        </div>        <div className="md:col-span-7 lg:col-span-8 flex flex-col space-y-6">   
+          <ClaimSection 
             handleClaim={handleClaim}
             isLoading={isLoading}
             status={status}
-          />
-          {/* <AppsSection /> */}
+          />          <TransactionHistory lastClaimedAddress={lastClaimedAddress} />
         </div>
       </main>
 

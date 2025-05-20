@@ -25,7 +25,7 @@ export default function ClaimSection({ handleClaim, isLoading, status }) {
       <div className="flex justify-between items-center bg-white/5 rounded-lg p-4">
         <div>
           <p className="text-xs text-gray-400">Claimable Tokens</p>
-          <p className="font-semibold text-lg">1000 <span className="text-gray-400 text-sm">ST</span></p>
+          <p className="font-semibold text-lg">350 - 500 <span className="text-gray-400 text-sm">ST</span></p>
         </div>
         <button          onClick={onClaimClick}
           disabled={isLoading}

@@ -61,15 +61,7 @@ const ProfileCard = () => (
       </div>
       <div className="absolute bottom-0 left-0 h-px w-full bg-linear-to-r from-transparent via-white/20 to-transparent" />
     </div>
-    <div className="absolute top-4 right-4">
-      <Image
-        src="/icons/ios/100.png"
-        alt="Logo"
-        width={100}
-        height={100}
-        className="h-12 w-12 object-contain mix-blend-color-dodge sm:h-16 sm:w-16"
-      />
-    </div>
+  
     <div className="absolute right-4 bottom-4 mix-blend-overlay">
       <div className="relative flex items-center gap-1.5 rounded-full border border-white/20 bg-linear-to-r from-white/30 via-white/20 to-white/10 px-3 py-1.5 backdrop-blur-sm">
         <p className="relative text-base font-bold text-white mix-blend-plus-lighter">0</p>
