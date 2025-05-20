@@ -204,7 +204,7 @@ const SuccessModal = ({ isOpen, onClose, onSignIn }) => {
                     className="text-gray-400 text-base sm:text-lg mb-4 sm:mb-6 leading-relaxed"
                     variants={itemVariants}
                   >
-                    Congratulations! You've successfully completed the first step.
+                    Congratulations! You&apos;ve successfully completed the first step.
                   </motion.p>
 
                   <motion.div
@@ -218,8 +218,7 @@ const SuccessModal = ({ isOpen, onClose, onSignIn }) => {
                     </div>
                     <h3 className="text-lg sm:text-xl font-semibold text-white mb-2">
                       Next Step: Sign In
-                    </h3>
-                    <p className="text-gray-500 text-xs sm:text-sm leading-relaxed">
+                    </h3>                    <p className="text-gray-500 text-xs sm:text-sm leading-relaxed">
                       Sign in to your account to collect your free Sidra tokens and unlock exclusive rewards.
                     </p>
                   </motion.div>

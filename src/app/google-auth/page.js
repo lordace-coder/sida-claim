@@ -1,5 +1,8 @@
 import GoogleSignIn from "@/app/components/google-login";
 
-export default  function ()  {
-  return <GoogleSignIn/>
+function GoogleAuthPage() {
+  return <GoogleSignIn/>;
 }
+
+GoogleAuthPage.displayName = 'GoogleAuthPage';
+export default GoogleAuthPage;
