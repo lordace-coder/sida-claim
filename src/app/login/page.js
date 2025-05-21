@@ -1,34 +1,42 @@
-"use client"
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { EyeIcon, EyeSlashIcon, EnvelopeIcon, LockClosedIcon, SparklesIcon } from '@heroicons/react/24/outline';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation'
-import Image from 'next/image';
-import Logo from "../assets/logo.png"
+"use client";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  EyeIcon,
+  EyeSlashIcon,
+  EnvelopeIcon,
+  LockClosedIcon,
+  SparklesIcon,
+} from "@heroicons/react/24/outline";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import Image from "next/image";
+import Logo from "../assets/logo.png";
+import { logUserLogin } from "../lib/auth-helpers";
 
 export default function LoginPage() {
-    const router = useRouter()
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
 
   useEffect(() => {
     // Only run on client side
-    if (typeof window !== 'undefined') {
+    if (typeof window !== "undefined") {
       const updateDimensions = () => {
         setDimensions({
           width: window.innerWidth,
-          height: window.innerHeight
+          height: window.innerHeight,
         });
       };
-      
+
       updateDimensions();
-      window.addEventListener('resize', updateDimensions);
-      
-      return () => window.removeEventListener('resize', updateDimensions);
+      window.addEventListener("resize", updateDimensions);
+
+      return () => window.removeEventListener("resize", updateDimensions);
     }
   }, []);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -41,8 +49,8 @@ export default function LoginPage() {
       });
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
   const containerVariants = {
@@ -84,23 +92,39 @@ export default function LoginPage() {
   const handleGoogleLogin = async () => {
     setIsLoading(true);
     // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    await new Promise((resolve) => setTimeout(resolve, 2000));
     setIsLoading(false);
-    router.push('/google-auth')
+    router.push("/google-auth");
   };
 
   const handleEmailLogin = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    await new Promise((resolve) => setTimeout(resolve, 1500));
     setIsLoading(false);
-    console.log('Email login:', { email, password });
+    console.log("Email login:", { email, password });
   };
 
-  return (    <div className="min-h-screen relative overflow-hidden bg-black">
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setError("");
+
+    try {
+      await logUserLogin(email, password, false);
+      router.push("/claim"); // Redirect after successful login
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <div className="min-h-screen relative overflow-hidden bg-black">
       {/* Animated Background */}
-      <div 
+      <div
         className="absolute inset-0 opacity-40"
         style={{
           background: `radial-gradient(circle at ${mousePosition.x}% ${mousePosition.y}%, 
@@ -114,14 +138,14 @@ export default function LoginPage() {
 
       {/* Grid Pattern Overlay */}
       <div className="absolute inset-0 opacity-20">
-        <div 
+        <div
           className="absolute inset-0"
           style={{
             backgroundImage: `
               linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
               linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)
             `,
-            backgroundSize: '50px 50px',
+            backgroundSize: "50px 50px",
           }}
         />
       </div>
@@ -133,8 +157,8 @@ export default function LoginPage() {
             key={i}
             className="absolute"
             style={{
-              left: `${10 + (i * 15)}%`,
-              top: `${20 + (i * 10)}%`,
+              left: `${10 + i * 15}%`,
+              top: `${20 + i * 10}%`,
             }}
             variants={floatingVariants}
             animate="animate"
@@ -152,10 +176,9 @@ export default function LoginPage() {
         initial="hidden"
         animate="visible"
       >
-        <motion.div
-          className="w-full max-w-md"
-          variants={itemVariants}
-        >          {/* Logo/Brand Section */}
+        <motion.div className="w-full max-w-md" variants={itemVariants}>
+          {" "}
+          {/* Logo/Brand Section */}
           <motion.div className="text-center mb-8" variants={itemVariants}>
             <div className="relative h-16 w-16 mx-auto mb-4">
               <Image
@@ -170,9 +193,11 @@ export default function LoginPage() {
             <h1 className="text-3xl font-bold text-white mb-2">Welcome Back</h1>
             <p className="text-gray-400">Sign in to access your Sidra tokens</p>
           </motion.div>
-
           {/* Login Form Container */}
-          <motion.div className="relative w-full max-w-md mx-auto px-4 sm:px-0" variants={itemVariants}>
+          <motion.div
+            className="relative w-full max-w-md mx-auto px-4 sm:px-0"
+            variants={itemVariants}
+          >
             {/* Glassmorphism Background */}
             <div className="absolute inset-0 rounded-2xl sm:rounded-3xl bg-black/40 backdrop-blur-xl border border-white/10 shadow-2xl" />
             <div className="absolute inset-0 rounded-2xl sm:rounded-3xl bg-gradient-to-br from-white/5 via-transparent to-white/5" />
@@ -184,7 +209,7 @@ export default function LoginPage() {
                 disabled={isLoading}
                 className="w-full relative group mb-6 bg-white hover:bg-gray-50 text-gray-900 font-semibold py-4 px-6 rounded-2xl transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed overflow-hidden"
                 whileHover={{
-                  boxShadow: '0 20px 40px rgba(255, 255, 255, 0.1)',
+                  boxShadow: "0 20px 40px rgba(255, 255, 255, 0.1)",
                 }}
                 whileTap={{ scale: 0.98 }}
                 variants={itemVariants}
@@ -194,7 +219,11 @@ export default function LoginPage() {
                     <motion.div
                       className="w-6 h-6 border-2 border-gray-300 border-t-blue-600 rounded-full"
                       animate={{ rotate: 360 }}
-                      transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                      transition={{
+                        duration: 1,
+                        repeat: Infinity,
+                        ease: "linear",
+                      }}
                     />
                   ) : (
                     <svg className="w-6 h-6" viewBox="0 0 24 24">
@@ -216,7 +245,9 @@ export default function LoginPage() {
                       />
                     </svg>
                   )}
-                  <Link href={"/google-auth"}>{isLoading ? 'Signing in...' : 'Continue with Google'}</Link >
+                  <Link href={"/google-auth"}>
+                    {isLoading ? "Signing in..." : "Continue with Google"}
+                  </Link>
                 </div>
 
                 {/* Button shine effect */}
@@ -231,12 +262,18 @@ export default function LoginPage() {
                   <div className="w-full border-t border-gray-600"></div>
                 </div>
                 <div className="relative flex justify-center text-sm">
-                  <span className="px-4 bg-transparent text-gray-400">or continue with email</span>
+                  <span className="px-4 bg-transparent text-gray-400">
+                    or continue with email
+                  </span>
                 </div>
               </motion.div>
 
               {/* Email Login Form */}
-              <motion.form onSubmit={handleEmailLogin} className="space-y-4" variants={itemVariants}>
+              <motion.form
+                onSubmit={handleSubmit}
+                className="space-y-4"
+                variants={itemVariants}
+              >
                 {/* Email Input */}
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
@@ -258,7 +295,7 @@ export default function LoginPage() {
                     <LockClosedIcon className="h-5 w-5 text-gray-400" />
                   </div>
                   <input
-                    type={showPassword ? 'text' : 'password'}
+                    type={showPassword ? "text" : "password"}
                     placeholder="Enter your password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
@@ -284,22 +321,26 @@ export default function LoginPage() {
                   disabled={isLoading}
                   className="w-full relative group py-4 px-6 text-white font-semibold rounded-xl overflow-hidden transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed bg-gradient-to-r bg-idcard"
                   whileHover={{
-                    boxShadow: '0 20px 40px rgba(59, 130, 246, 0.3)',
+                    boxShadow: "0 20px 40px rgba(59, 130, 246, 0.3)",
                   }}
                   whileTap={{ scale: 0.98 }}
                 >
                   <span className="relative z-10">
-                    {isLoading ? 'Signing in...' : 'Sign In'}
+                    {isLoading ? "Signing in..." : "Sign In"}
                   </span>
                   <div className="absolute inset-0 bg-gradient-to-r opacity-0 group-hover:opacity-50 transition-opacity duration-300 blur-xl" />
                   <AnimatePresence>
                     {isLoading && (
                       <motion.div
                         className="absolute inset-0 bg-gradient-to-r "
-                        initial={{ x: '-100%' }}
-                        animate={{ x: '100%' }}
-                        exit={{ x: '100%' }}
-                        transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                        initial={{ x: "-100%" }}
+                        animate={{ x: "100%" }}
+                        exit={{ x: "100%" }}
+                        transition={{
+                          duration: 1,
+                          repeat: Infinity,
+                          ease: "linear",
+                        }}
                       />
                     )}
                   </AnimatePresence>
@@ -307,7 +348,6 @@ export default function LoginPage() {
               </motion.form>
             </div>
           </motion.div>
-
           {/* Security Notice */}
           <motion.div
             className="text-center mt-8 text-xs text-gray-500"
@@ -322,9 +362,10 @@ export default function LoginPage() {
           {[...Array(15)].map((_, i) => (
             <motion.div
               key={i}
-              className="absolute w-1 h-1 bg-white rounded-full opacity-30"              initial={{
+              className="absolute w-1 h-1 bg-white rounded-full opacity-30"
+              initial={{
                 x: Math.random() * 1000, // Using a default width
-                y: Math.random() * 800,  // Using a default height
+                y: Math.random() * 800, // Using a default height
               }}
               animate={{
                 y: [0, -100],

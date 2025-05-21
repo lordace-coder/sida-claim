@@ -223,7 +223,7 @@ export default function SidraClaimPage() {
                 <motion.div className="text-center" variants={itemVariants}>
                   {" "}
                   <motion.button
-                    className="relative group px-12 py-6 text-xl font-bold text-white rounded-full overflow-hidden transform transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-[#8B6B1F]/30"
+                    className="relative group px-12 py-6 text-xl font-bold text-white rounded-full overflow-hidden transform transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-[#8B6B1F]/30 flex align-middle"
                     style={{
                       background:
                         "linear-gradient(135deg, #8B6B1F 0%, #6B4E0F 100%)",
